@@ -3,40 +3,57 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 class Square extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: null
+    };
+  }
+
   render() {
     return (
-      <button className="square">
-        {/* TODO */}
+      <button
+        className="square"
+        onClick={() => { this.setState({ value: this.props.player }) }}
+      >
+        {this.state.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      player: 'a'
+    };
+  }
+
   renderSquare(i) {
-    return <Square />;
+    return <Square player={i}/>;
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + this.state.player;
 
     return (
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
         </div>
         <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
         </div>
         <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
+          {this.renderSquare(this.state.player)}
         </div>
       </div>
     );
