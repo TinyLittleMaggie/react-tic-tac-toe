@@ -21,21 +21,11 @@ function Card(props) {
 }
 
 class Dropdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: 'coconut'};
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
   render() {
     return (
       <div>
         <label>Pick a product: </label>
-        <select value={this.state.value} onChange={this.handleChange}>
+        <select value={this.props.value} onChange={(event) => this.props.onClick(event)}>
           <option value="grapefruit">Grapefruit</option>
           <option value="lime">Lime</option>
           <option value="coconut">Coconut</option>
@@ -47,10 +37,23 @@ class Dropdown extends React.Component {
 }
 
 class Form extends React.Component {
-  render() {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  render(event) {
     return (
       <div className="form">
-        <Dropdown />
+        <Dropdown
+          value={this.state.value}
+          onClick={(event) => this.handleChange(event)}
+        />
         <Card />
       </div>
     );
