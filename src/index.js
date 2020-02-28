@@ -19,15 +19,24 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player: 'o',
+      player: 'x',
       squares: Array(9).fill(null)
     };
+  }
+
+  togglePlayer() {
+    if (this.state.player === 'o') {
+      this.setState({ player: 'x' });
+    } else {
+      this.setState({ player: 'o' });
+    }
   }
 
   handleClick(i) {
     const squares = this.state.squares;
     squares[i] = this.state.player;
     this.setState({ squares: squares });
+    this.togglePlayer();
   }
 
   renderSquare(i) {
