@@ -2,109 +2,56 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-function Square(props) {
+const data = {
+  cpType: {desc: "New Monitor", fontColor: "purple", pillBg: "white", borderColor: "purple"},
+  finished: {text: "Needs Review", bgColor: "red"},
+  id: 36,
+  productFamily: {id: 86, name: "SWIMMING GOGGLE"},
+  review_day: "28",
+  review_month: "Feb",
+  status: {text: "N/A", bgColor: "red"}
+};
+
+function Card(props) {
   return (
-    <button className="square" onClick={props.onClick}>
-      {props.value}
-    </button>
+    <div className="card">
+      I am a card.
+    </div>
   );
 }
 
-class Board extends React.Component {
+class Dropdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      player: 'X',
-      squares: Array(9).fill(null)
-    };
+    this.state = {value: 'coconut'};
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  togglePlayer() {
-    if (this.state.player === 'O') {
-      this.setState({ player: 'X' });
-    } else {
-      this.setState({ player: 'O' });
-    }
-  }
-
-  detectWinner() {
-    const squares = this.state.squares;
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-        return squares[a];
-      }
-    }
-    return null;
-  }
-
-  handleClick(i) {
-    const squares = this.state.squares.slice();
-    if (this.detectWinner() || squares[i]) {
-      // ignore click if someone has won the game or the square is filled
-      return;
-    }
-    squares[i] = this.state.player;
-    this.setState({ squares: squares });
-    this.togglePlayer();
-  }
-
-  renderSquare(i) {
-    return (
-      <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
-      />
-    );
+  handleChange(event) {
+    this.setState({value: event.target.value});
   }
 
   render() {
-    const winner = this.detectWinner();
-    const status = winner ? winner + ' wins!' : 'Next player: ' + this.state.player;
     return (
       <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        <label>Pick a product: </label>
+        <select value={this.state.value} onChange={this.handleChange}>
+          <option value="grapefruit">Grapefruit</option>
+          <option value="lime">Lime</option>
+          <option value="coconut">Coconut</option>
+          <option value="mango">Mango</option>
+        </select>
       </div>
     );
   }
 }
 
-class Game extends React.Component {
+class Form extends React.Component {
   render() {
     return (
-      <div className="game">
-        <div className="game-board">
-          <Board />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
+      <div className="form">
+        <Dropdown />
+        <Card />
       </div>
     );
   }
@@ -113,7 +60,7 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Form />,
   document.getElementById('root')
 );
 
