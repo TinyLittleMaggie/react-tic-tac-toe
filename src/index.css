@@ -48,3 +48,15 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.card {
+  border: 1px solid grey;
+  border-radius: 16px;
+  width: 300px;
+  padding: 30px;
+  margin-top: 30px;
+}
+
+.card h2 {
+  margin: 0;
+}
